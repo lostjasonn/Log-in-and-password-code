@@ -1,0 +1,41 @@
+import datetime
+
+correct_username = "admin"
+correct_email = "admin@example.com"
+correct_phone = "123-456-7890"
+correct_pin = "881314"
+
+incorrect_attempts = 0
+
+while incorrect_attempts < 5:
+    username = input("Enter your username: ")
+
+    if username == correct_username:
+        password = input("Enter your password: ")
+        if password == "password":
+            pin = input("Enter your pin: ")
+            if pin == correct_pin:
+                print("Logging in now")
+                print(f"Welcome back {correct_username}")
+                while True:
+                    command = input("Enter a command ('info' to get email and phone number, 'time' to get UK time, 'logout' to exit): ")
+                    if command == "info":
+                        print(f"Email: {correct_email}")
+                        print(f"Phone: {correct_phone}")
+                    elif command == "time":
+                        uk_time = datetime.datetime.now(datetime.timezone.utc).astimezone(tz=datetime.timezone(datetime.timedelta(hours=1)))
+                        print(f"UK Time: {uk_time.strftime('%Y-%m-%d %H:%M:%S')}")
+                    elif command == "logout":
+                        print("Logging out now.")
+                        break
+            else:
+                print("Incorrect pin. Please try again.")
+        else:
+            print("Incorrect password. Please try again.")
+    else:
+        print("Incorrect username")
+        incorrect_attempts += 1
+
+    if incorrect_attempts == 5:
+        print("Too many incorrect attempts. Logging out.")
+        break
